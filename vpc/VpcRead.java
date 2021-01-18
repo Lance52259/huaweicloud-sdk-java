@@ -27,15 +27,14 @@ public class VpcRead {
     }
 
     public Vpc getVpcById(VpcClient client, String vpcId) {
-        ShowVpcResponse showVpcResponse;
+        ShowVpcResponse showVpcResponse = new ShowVpcResponse();
         try {
             showVpcResponse = client.showVpc(new ShowVpcRequest()
                     .withVpcId(vpcId));
             logger.info(showVpcResponse.toString());
         } catch (ClientRequestException e) {
-            return null;
+            logger.error("[Vpc]ErrorMsg: " + e.getErrorMsg());
         }
-        showVpc(showVpcResponse.getVpc());
         return showVpcResponse.getVpc();
     }
 
